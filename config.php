@@ -33,8 +33,8 @@ function insert_row(...$args)
         
         return "TRUE";
     } else {
-        return "FALSE";
-        error_log($conn->error."e");
+        //return "FALSE";
+        return error_log($conn->error."e");
     }
 }
 
@@ -85,13 +85,12 @@ function get_last_row($table, $col)
 {
     global $conn;
 
-    $sql = "SELECT ".$id." FROM ".$table." ORDER BY id DESC LIMIT 1";
+    $sql = "SELECT id FROM ".$table." ORDER BY id DESC LIMIT 1";
     // echo $sql;
     $result = $conn->query($sql);
     if ($result->num_rows == 1) {
-        error_log("jji");
         while ($row = $result->fetch_assoc()) {
-            error_log($row[$col]);
+            return $row[$col];
         }
     } else {
         return false;

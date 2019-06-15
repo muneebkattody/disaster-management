@@ -68,7 +68,6 @@ if ($origin == 'donation') {
 }
 
 if ($origin == 'createCamp') {
-    echo "Here";
     $name = $_POST['name'];
     $adminName = $_POST['adminName'];
     $adminPhone = $_POST['adminPhone'];
@@ -89,11 +88,12 @@ if ($origin == 'createCamp') {
     }
     
     $sent = insert_row("campDetails", $name, $adminName, $adminPhone, $alterPhone, $adminMail, $peopleCapacity, $availDoctor, $availVolunteer, $kitchen, $toilet, $peopleNow);
+    error_log($sent);
 
     if ($sent) {
         $id = get_last_row("CampDetails", "id");
 
         $conn->close();
-        header('location: createCamp.php?status=Data Uploaded Successfully. Your Camp Id is:' . $id . '');
+        //header('location: createCamp.php?status=Data Uploaded Successfully. Your Camp Id is:' . $id . '');
     }
 }

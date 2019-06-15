@@ -14,12 +14,12 @@ require('header.php');
     Alternative Phone<input type="number" name="alterPhone" id="alterPhone">Water<br>
     Admin Male<input type="number" name="adminMale" id="adminMale">Food<br>
     People Capacity<input type="number" name="peopleCapacity" id="clothing">Clothing<br>
-    Medicine<input type="number" name="toilet" id="toilet">Medicine<br>
+    toilet<input type="number" name="toilet" id="toilet">Medicine<br>
     Kitchen<input type="number" name="kitchen" id="kitchen">Cooking<br>
     GeoLocation<input type="number" name="geoLocation" id="geoLocation">Sanitary<br>
     Available Doctors<input type="number" name="availDoctor" id="availDoctor">Sanitary<br>
     People Now<input type="number" name="peopleNow" id="peopleNow">Sanitary<br>
-    People Now<input type="number" name="availVolunteer" id="availVolunteer"><br>
+    Available volunteers<input type="number" name="availVolunteer" id="availVolunteer"><br>
     <input type="submit" value="Submit">
     <input type="reset" value="Reset">
 </form>
