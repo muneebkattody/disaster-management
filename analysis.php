@@ -40,7 +40,7 @@ $conn->close();
 
 // 2- SECOND GET NEEDS FOR EACH CAMP AND THE CATOGORY OF NEEDS
 // SET DB NAME
-$dbname = "needs";
+$dbname = "camp";
 
 // CREATES CONNECTION
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -11,6 +11,8 @@ function insert_row(...$args)
     // GETTING GLOBAL CONN
     global $conn;
 
+    //SETTING COLUMNS
+
     // GETTING TABLE VALUE
     $table = $args[0];
 
@@ -23,14 +25,16 @@ function insert_row(...$args)
         // STORING TABLE VALUES TO VARIABLE
         $val .= ",'" . $v . "'";
     }
-
-    // SQL FORINSERT ROW
+    
+    // SQL FOR INSERT ROW
     $sql = "INSERT INTO " . $table . " VALUES(" . $val . ")";
 
     if ($conn->query($sql)) {
+        
         return "TRUE";
     } else {
-        return "FALSE" . $conn->error;
+        return "FALSE";
+        error_log($conn->error."e");
     }
 }
 
@@ -72,6 +76,23 @@ function row_excist($table, $where)
     if ($result->num_rows == 1) {
         // echo "yes";
         return true;
+    } else {
+        return false;
+    }
+}
+
+function get_last_row($table, $col)
+{
+    global $conn;
+
+    $sql = "SELECT ".$id." FROM ".$table." ORDER BY id DESC LIMIT 1";
+    // echo $sql;
+    $result = $conn->query($sql);
+    if ($result->num_rows == 1) {
+        error_log("jji");
+        while ($row = $result->fetch_assoc()) {
+            error_log($row[$col]);
+        }
     } else {
         return false;
     }

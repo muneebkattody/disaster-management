@@ -5,7 +5,8 @@ require('header.php');
 <h1>Disaster Management Software</h1>
 <a href="campneeds.php">Camp Needs Form</a><br>
 <a href="donation.php">Donation Form</a><br>
-<a href="analysis.php">Analysis</a>
+<a href="analysis.php">Analysis</a><br>
+<a href="createCamp.php">Create Camp</a>
 <?php
 require('footer.php');
 ?>
