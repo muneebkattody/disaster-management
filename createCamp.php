@@ -5,6 +5,8 @@ require('header.php');
 <script>
     getLocation();
 </script>
+</head>
+<body>
 <p><?php if(!empty($_GET['status'])) echo $_GET['status'] ?></p>
 <form action="process.php" method="post">
     <input type="hidden" name="origin" value="createCamp">

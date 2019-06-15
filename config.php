@@ -2,8 +2,8 @@
 
 // DATABASE VALUES
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "id9965532_admin";
+$password = "aardWolf";
 
 // FUNCTION TO INSERT A ROW TO TABLE
 function insert_row(...$args)

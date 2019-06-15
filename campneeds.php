@@ -2,6 +2,8 @@
 $title = "Camp Needs Form";
 require 'header.php';
 ?>
+</head>
+<body>
 <p><?php if(!empty($_GET['status'])) echo $_GET['status'] ?></p>
 <form action="process.php" method="post">
     <input type="hidden" name="origin" value="campneeds">

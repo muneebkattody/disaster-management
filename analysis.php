@@ -1,13 +1,14 @@
 <?php
 $title = "Result Generator";
 require 'header.php';
+echo "</head><body>";
 
 // GET DATABASE VALUES
 require 'config.php';
 
 // 1- FIRST TRY TO GET ALL THE RESOUCES WE HAVE NY PLAYING WITH DONATIONS TABLE
 // SET DATABASE NAME
-$dbname = "donation";
+$dbname = "id9965532_camp";
 
 // CREATES CONNECTION
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -40,7 +41,7 @@ $conn->close();
 
 // 2- SECOND GET NEEDS FOR EACH CAMP AND THE CATOGORY OF NEEDS
 // SET DB NAME
-$dbname = "camp";
+$dbname = "id9965532_camp";
 
 // CREATES CONNECTION
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -147,7 +148,7 @@ foreach ($camps as $key => $cn) {
 echo "</table>";
 
 //  STORING DATA TO TEMP_RESULT TABLE
-$db = 'results';
+$db = 'id9965532_camp';
 $conn = new mysqli($servername, $username, $password, $db);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

@@ -8,6 +8,5 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/w3.css">
     <script src="js/main.js"></script>
-</head>
-<body>
+
     

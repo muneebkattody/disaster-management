@@ -14,7 +14,7 @@ if ($origin == 'campneeds') {
     $cooking = $_POST['cooking'];
     $sanitary = $_POST['sanitary'];
 
-    $db = 'camp';
+    $db = 'id9965532_camp';
     $conn = new mysqli($servername, $username, $password, $db);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -54,7 +54,7 @@ if ($origin == 'donation') {
     $sanitary = $_POST['sanitary'];
     //$location = $_POST['location'];
 
-    $db = 'donation';
+    $db = 'id9965532_camp';
     $conn = new mysqli($servername, $username, $password, $db);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -81,7 +81,7 @@ if ($origin == 'createCamp') {
     $availDoctor = $_POST['availDoctor'];
     $peopleNow = $_POST['peopleNow'];
 
-    $db = 'camp';
+    $db = 'id9965532_camp';
     $conn = new mysqli($servername, $username, $password, $db);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -94,6 +94,17 @@ if ($origin == 'createCamp') {
         $id = get_last_row("CampDetails", "id");
 
         $conn->close();
-        //header('location: createCamp.php?status=Data Uploaded Successfully. Your Camp Id is:' . $id . '');
+        header('location: createCamp.php?status=Data Uploaded Successfully. Your Camp Id is:' . $id . '');
     }
+}
+
+if($origin == 'missingPerson'){
+    $db = 'id9965532_camp';
+    $conn = new mysqli($servername, $username, $password, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    
+    $sent = insert_row("missingPerson", $name, $adminName, $adminPhone, $alterPhone, $adminMail, $peopleCapacity, $availDoctor, $availVolunteer, $kitchen, $toilet, $peopleNow);
+    error_log($sent);
 }
