@@ -104,7 +104,61 @@ if($origin == 'missingPerson'){
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+
+    $state = $_POST['state'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $age = $_POST['age'];
+    $gender = $_POST['gender'];
+    $guardianName = $_POST['guardianName'];
+    //$photo = $_POST['photo'];
+    $district = $_POST['district'];
+    $lastLocation = $_POST['lastLocation'];
+    $missingDate = $_POST['missingDate'];
+    $address = $_POST['address'];
+    $reportedBy = $_POST['reportedBy'];
+    $reportersNumber = $_POST['reportersNumber'];
+    $policeStation = $_POST['policeStation'];
+    $relativeName = $_POST['relativeName'];
+    $relativeNumber = $_POST['relativeNumber'];
+    $relativeNameSec = $_POST['relativeNameSec'];
+    $relativeNumberSec = $_POST['relativeNumberSec'];
+    $relativeNameThird = $_POST['relativeNameThird'];
+    $relativeNumberThird = $_POST['relativeNumberthird'];    
     
-    $sent = insert_row("missingPerson", $name, $adminName, $adminPhone, $alterPhone, $adminMail, $peopleCapacity, $availDoctor, $availVolunteer, $kitchen, $toilet, $peopleNow);
+    
+    $sent = insert_row("missingPerson", $state, $name, $description, $age, $gender, $guardianName, $district, $lastLocation, $missingDate, $address, $reportedBy, $reportersNumber, $policeStation, $relativeName, $relativeNumber, $relativeNameSec, $relativeNumberSec, $relativeNameThird, $relativeNumberThird);
     error_log($sent);
+
+    if ($sent) {
+
+        $conn->close();
+        header('location: missingPerson.php?status=Data Uploaded Successfully.');
+    }
+}
+
+if($origin == 'newVolunteer'){
+    $db = 'id9965532_camp';
+    $conn = new mysqli($servername, $username, $password, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+    $district = $_POST['district'];
+    $orgonization = $_POST['organization'];
+    $area = $_POST['area'];
+    $address = $_POST['address'];
+  
+    
+    
+    $sent = insert_row("newvolunteer", $name, $phone, $district, $orgonization, $area, $address);
+    error_log($sent);
+
+    if ($sent) {
+        echo "DATA AUPLOADED SUCCESFULLY";
+        $conn->close();
+        //header('location: newVolunteer.php?status=Data Uploaded Successfully.');
+    }
 }

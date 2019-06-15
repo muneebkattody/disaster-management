@@ -1,5 +1,5 @@
 <?
-$state = $_POST['state']; -->
+    $state = $_POST['state'];
     $name = $_POST['name'];
     $description = $_POST['description'];
     $age = $_POST['age'];

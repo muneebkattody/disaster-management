@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/w3.css">
+    <script src="js/main.js"></script>
+    <style>
+    .btn2{
+            background-color: darkslategrey;
+            text-align: center;
+            cursor: pointer;
+            color: black;
+            border: 2px solid black;
+            align-content: center;
+            font-size: 25px;
+        }
+       
+        
+    </style>
+    </head>
+    <body bgcolor="grey">
+    <form action="process.php" method="post">
+        <h1 align="center">REGISTER</h1>
+        <div>
+        <input type="hidden" name="origin" value="newVolunteer">
+        Name:<br>
+            <input type="text" name="name" id="name" placeholder="name"><br>
+        District:<br>
+            <select name="district">
+            <option value="kozhikode">kozhikode</option>
+            <option value="trivandrum">trivandrum</option>
+            <option value="malappuram">malappuram</option>
+            <option value="aalappuzha">aalappuzha</option>
+            <option value="kannur">kannur</option>
+            <option value="kottayam">kottayam</option>
+            <option value="thrissur">thrissur</option>
+            <option value="kasargod">kasargod</option>
+            <option value="wayanad">wayanad</option>
+            <option value="idukki">idukki</option>
+            <option value="palakkad">palakkad</option>
+            <option value="eranakulam">eranakulam</option>
+            <option value="pathanamthitta">pathanamthitta</option>
+            <option value="kollam">kollam</option>
+                <option value="select" selected>select</option>
+            </select><br>
+        Phone:<br>
+            <input type="text" name="phone" id="phone" placeholder="phone"><br>
+        Organization:<br>
+            <input type="text" name="organization" id="organization" placeholder="organization"><br>
+        Area Volunteering:<br>
+            <input type="text" name="area" id="area" placeholder="area"><br>
+        Address:<br>
+            <textarea name="address" id="address" rows="4" cols="50" placeholder="address..."></textarea><br><br>
+        <div align="center">
+            <button class="btn2" type="submit">SUBMIT</button>
+            </div>
+        </div>
+           
+    
+        
+    </form>
+    </body>
+</html>

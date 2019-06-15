@@ -8,7 +8,10 @@ require('header.php');
 <a href="campneeds.php">Camp Needs Form</a><br>
 <a href="donation.php">Donation Form</a><br>
 <a href="analysis.php">Analysis</a><br>
-<a href="createCamp.php">Create Camp</a>
+<a href="createCamp.php">Create Camp</a><br>
+<a href="missingPerson.php">Missing Person</a><br>
+<a href="volunteer.html">Volunteer</a><br>
+<a href="personsInCamp.html">PersonsInCamp</a><br>
 <?php
 require('footer.php');
 ?>

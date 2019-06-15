@@ -3,6 +3,11 @@ $title = "Result Generator";
 require 'header.php';
 echo "</head><body>";
 
+// GET NEEDS FROM NEEDS.CSV FILE
+$file = fopen("csv/needs.csv","r");
+$needs = fgetcsv($file);
+fclose($file);
+
 // GET DATABASE VALUES
 require 'config.php';
 
@@ -24,13 +29,11 @@ $sql = "SELECT SUM(food) AS food, SUM(water) AS water, SUM(clothing) AS clothing
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) {
     // STORE TOTAL VALUES TO ARRAY AVAIL[] BY CATOGORY USING ASSOSIATIVE ARRAY
-    $avail['food'] = $row['food'];
-    $avail['water'] = $row['water'];
-    $avail['clothing'] = $row['clothing'];
-    $avail['medicine'] = $row['medicine'];
-    $avail['cooking'] = $row['cooking'];
-    $avail['sanitary'] = $row['sanitary'];
+    foreach($needs as $el){
+    $avail[$el] = $row[$el];
+    }
 }
+
 
 // CLOSE MySQL CONNECTION
 $conn->close();
@@ -60,12 +63,8 @@ if ($result->num_rows > 0) {
         // GET CAMP NO
         $campno = $row['campno'];
         //STORE VALUES TO NEED DB WITH RESPECT TO CATOGORY AND CAMP NO
-        $need['food'][$campno] = $row['food'];
-        $need['water'][$campno] = $row['water'];
-        $need['clothing'][$campno] = $row['clothing'];
-        $need['medicine'][$campno] = $row['medicine'];
-        $need['cooking'][$campno] = $row['cooking'];
-        $need['sanitary'][$campno] = $row['sanitary'];
+        foreach($needs as $el)
+        $need[$el][$campno] = $row[$el];
     }
 } else { // IF THERE IS NO ROW IN CAMPNEEDS - MEANS THERE IS NO NEED
     echo "THERE IS NO NEED";
@@ -76,12 +75,8 @@ $sql = "SELECT SUM(food) AS food, SUM(water) AS water, SUM(clothing) AS clothing
 $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) {
     // STORE TOTAL VALUES TO ARRAY AVAIL[] BY CATOGORY USING ASSOSIATIVE ARRAY
-    $total_need['food'] = $row['food'];
-    $total_need['water'] = $row['water'];
-    $total_need['clothing'] = $row['clothing'];
-    $total_need['medicine'] = $row['medicine'];
-    $total_need['cooking'] = $row['cooking'];
-    $total_need['sanitary'] = $row['sanitary'];
+    foreach($needs as $el)
+    $total_need[$el] = $row[$el];
 }
 // CLOSING MySQL CONNECTION
 $conn->close();
@@ -94,24 +89,17 @@ echo "<BR><table class='w3-bordered w3-border'><tr>
     <th>Goods</th><th>Need</th><th>Available</th>
     </tr>";
 // PRINT EACH VAUES CORRESPONDINGLY
-echo "<tr><td>food</td><td>" . $total_need['food'] . "</td><td>" . $avail['food'] . "</td></tr>";
-echo "<tr><td>water</td><td>" . $total_need['water'] . "</td><td>" . $avail['water'] . "</td></tr>";
-echo "<tr><td>clothing</td><td>" . $total_need['clothing'] . "</td><td>" . $avail['clothing'] . "</td></tr>";
-echo "<tr><td>medicines</td><td>" . $total_need['medicine'] . "</td><td>" . $avail['medicine'] . "</td></tr>";
-echo "<tr><td>cooking</td><td>" . $total_need['cooking'] . "</td><td>" . $avail['cooking'] . "</td></tr>";
-echo "<tr><td>sanitary</td><td>" . $total_need['sanitary'] . "</td><td>" . $avail['sanitary'] . "</td></tr>";
+foreach($needs as $el)
+echo "<tr><td>".$el."</td><td>" . $total_need[$el] . "</td><td>" . $avail[$el] . "</td></tr>";
 
 echo "</table>";
 // BALENCE OF AVAIL - IF AVAIL > NEED
 $balence = [];
 
 // DEVIDE AVAILBALE RESOURCES TO EACH CAMPS NY USING DEVIDER FUNCTION
-$supply['food'] = devider($avail['food'], $need['food'], $total_need['food']);
-$supply['water'] = devider($avail['water'], $need['water'], $total_need['water']);
-$supply['clothing'] = devider($avail['clothing'], $need['clothing'], $total_need['clothing']);
-$supply['medicine'] = devider($avail['medicine'], $need['medicine'], $total_need['medicine']);
-$supply['cooking'] = devider($avail['cooking'], $need['cooking'], $total_need['cooking']);
-$supply['sanitary'] = devider($avail['sanitary'], $need['sanitary'], $total_need['sanitary']);
+foreach($needs as $el)
+$supply[$el] = devider($avail[$el], $need[$el], $total_need[$el]);
+
 
 // PRINT SUPPLY ARRAY FOR TESTING
 // print_r($supply);
@@ -137,15 +125,26 @@ echo "<tr><td>" . $supply['sanitary'][$key] . "</td><td>" . $need['sanitary'][$c
 echo "</table>";
  */
 
-echo "<table class='w3-bordered w3-border'><tr>
-    <th>campno</th><th>food</th><th>water</th><th>clothing</th><th>medicine</th><th>cooking</th><th>sanitary</th></tr>";
+//SETTING TABLE LAYOUT
+$layout = "<table class='w3-bordered w3-border'><tr><th>Camp no.</th>";
+foreach($needs as $el)
+    $layout.="<th>".$el."</th>";
+$layout.="</tr>";
+
+
 // STORE CAMP NUMBERS
-$camps = array_keys($need['food']);
+$camps = array_keys($need[$needs[0]]);
 foreach ($camps as $key => $cn) {
-    // PRINT EACH VAUES CORRESPONDINGLY
-    echo "<tr><td rowspan='1'>" . $cn . "</td><td>" . $supply['food'][$key] . "</td><td>" . $supply['water'][$key] . "</td><td>" . $supply['clothing'][$key] . "</td><td>" . $supply['medicine'][$key] . "</td><td>" . $supply['cooking'][$key] . "</td><td>" . $supply['sanitary'][$key] . "</td></tr>";
+    // STORE EACH VAUES CORRESPONDINGLY
+    $layout.="<tr><td rowspan='1'>" . $cn . "</td>";
+    foreach($needs as $el){
+    $layout.="<td>".$supply[$el][$key];
+    }
+    $layout.="</tr>";
 }
-echo "</table>";
+$layout.="</table>";
+
+echo $layout;
 
 //  STORING DATA TO TEMP_RESULT TABLE
 $db = 'id9965532_camp';
@@ -164,13 +163,12 @@ foreach ($camps as $key => $cn) {
 }
 
 // PRINTING REMINING VALUES
-echo "REMINING RESOURCES ";
-echo "<br> FOOD:" . ($supply['food'][count($camps)] + $balence[0]);
-echo "<br>water:" . ($supply['water'][count($camps)] + $balence[1]);
-echo "<br>clothing:" . ($supply['clothing'][count($camps)] + $balence[2]);
-echo "<br>medicine:" . ($supply['medicine'][count($camps)] + $balence[3]);
-echo "<br>cooking:" . ($supply['cooking'][count($camps)] + $balence[4]);
-echo "<br>sanitary:" . ($supply['sanitary'][count($camps)] + $balence[5]);
+$layout = "REMINING RESOURCES ";
+foreach($needs as $key=>$el){
+    $layout.="<br> ".$el.":" . ($supply[$el][count($camps)] + $balence[$key]);
+}
+echo $layout;
+
 // DEVIDER FUNCTION TO DEVIDE AVAILBALE RESOURCE TO CAMP NEEDS
 function devider($s, $vars, $total_need)
 {
