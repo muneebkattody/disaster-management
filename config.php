@@ -1,9 +1,10 @@
 <?php
 
 // DATABASE VALUES
-$servername = "localhost";
-$username = "id9965532_admin";
-$password = "aardWolf";
+require 'db.php';
+
+// SETTING RESULT AS GLOBAL VARIABLE FOR USING MULTIPLE FUNCTIONS
+$result;
 
 // FUNCTION TO INSERT A ROW TO TABLE
 function insert_row(...$args)
@@ -11,7 +12,7 @@ function insert_row(...$args)
     // GETTING GLOBAL CONN
     global $conn;
 
-    //SETTING COLUMNS
+    // SETTING COLUMNS
 
     // GETTING TABLE VALUE
     $table = $args[0];
@@ -33,7 +34,7 @@ function insert_row(...$args)
         
         return "TRUE";
     } else {
-        //return "FALSE";
+        // return "FALSE";
         return error_log($conn->error."e");
     }
 }
@@ -56,7 +57,6 @@ function update_row(...$args)
     $val = substr(trim($val), 0, -1);
 
     $sql = "UPDATE " . $table . " SET " . $val . " WHERE " . $where;
-    //echo $sql;
 
     if ($conn->query($sql)) {
         return "TRUE";
@@ -71,10 +71,9 @@ function row_excist($table, $where)
     global $conn;
 
     $sql = "SELECT * FROM " . $table . " WHERE " . $where;
-    // echo $sql;
+
     $result = $conn->query($sql);
     if ($result->num_rows == 1) {
-        // echo "yes";
         return true;
     } else {
         return false;
@@ -86,7 +85,7 @@ function get_last_row($table, $col)
     global $conn;
 
     $sql = "SELECT id FROM ".$table." ORDER BY id DESC LIMIT 1";
-    // echo $sql;
+    
     $result = $conn->query($sql);
     if ($result->num_rows == 1) {
         while ($row = $result->fetch_assoc()) {
