@@ -124,7 +124,8 @@ function get_data($col, $table, $db, $where="", $colToGet=FALSE){
     }
     
     $result = $conn->query($sql);
-    $conn->close();
+
+    print_r($result);
 
     if ($result->num_rows >= 1) {
         while ($row = $result->fetch_assoc()) {
@@ -136,4 +137,6 @@ function get_data($col, $table, $db, $where="", $colToGet=FALSE){
         error_log("ERROR IN GET_DATA : RESULTING LESS THAN ONE OR NO ROWS");
         return false;
     }
+
+    $conn->close();
 }

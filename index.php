@@ -9,9 +9,10 @@ require 'header.php';
     border-radius:5px;
     color: rgba(0,0,0,.75);
     transition: .3s;
+    border : 1.5px solid rgba(0,0,0,0);
 }
 .w3-card-2:hover{
-    color: rgba(100,0,0,1);
+    border : 1.5px solid rgba(0,0,0,.5);
 }
 .w3-card-2 a{
     text-decoration: none;
@@ -22,7 +23,6 @@ require 'header.php';
 .m-top{
     margin-top:50px;
 }
-
 </style>
 </head>
 <body>
@@ -128,7 +128,7 @@ require 'header.php';
         <div class="w3-col s12 m6 l3">
             <div class="w3-card-2">
             <div class="w3-container">
-            <a href="personsInCamp.html">
+            <a href="personsInCamp.php">
                 <header>
                     <h4>Persons In Camp Form</h4>
                 </header>
@@ -141,10 +141,57 @@ require 'header.php';
             </a>
             </div>  
         </div>
+        <div class="w3-col s12 m6 l3">
+            <div class="w3-card-2">
+            <div class="w3-container">
+            <a href="dashboard.php">
+                <header>
+                    <h4>Status About All</h4>
+                </header>
+                <hr>
+                <p>
+                Here you can view all the status of the camps people and all data.
+                With well ditributed form.
+                </p>
+                </div>
+            </a>
+            </div>  
+        </div>
 </div>
 </div>
+
+<?php
+require 'config.php';
+
+$db = 'id9965532_camp';
+
+// TOTAL CAMPS
+$totalCamps = get_data('COUNT(id) as id', 'campDetails', $db, "", 'id');
+
+// PEOPLE CAPACITY INCLUDING ALL CAMPS
+$peopleCapacity = get_data('SUM(peopleCapacity) as peopleCapacity', 'campDetails', $db, "", 'peopleCapacity');
+
+// PEOPLE IN ALL CAMPS
+$peopleInAllCamps = get_data('COUNT(id) as id', 'personsInCamp', $db, "", 'id');
+
+?>
+
 <footer class="w3-container w3-teal m-top">
-    <h5>Status Of Camps</h5>
+    <div class="w3-container">
+        <h4 class="m-top">Status Of Camps</h4>
+        <hr>
+        <div class="w3-row">
+            <div class="w3-col w3-m12 s12 l4">
+                <p>Total Camps - <?php echo $totalCamps[0] ?></p>
+            </div>
+            <div class="w3-col w3-m12 s12 l4">
+                <p>People Capacity Include All camps - <?php echo $peopleCapacity[0] ?></p>
+            </div>
+            <div class="w3-col w3-m12 s12 l4">
+                <p>Peoples In All Camps - <?php echo $peopleInAllCamps[0] ?></p>
+            </div>
+        </div>
+    </div>
 </footer>
 <?php
 require 'footer.php';

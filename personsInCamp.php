@@ -1,21 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Persons In Camp Form</title>
+<?php
+
+$title = "Persons In Camp Form";
+require 'header.php';
+
+?>
 
 </head>
  
 <body>
-<h3 align="center">DETAILS ABOUT PERSONS INSIDE CAMP</h3>
 
-<form action="process.php" method="post">
+    <div class="w3-container w3-teal">
+        <h3 align="center">DETAILS ABOUT PERSONS INSIDE CAMP</h3>
+    </div>
+
+    <div class="w3-container m-top">
+    <form action="process.php" method="post">
     <input type="hidden" name="origin" value="personsInCamp" />
-<table align="center" cellpadding = "10">
-
-<!----- Camp Number ---------------------------------------------------------->
-<tr>
+    <table align="center" cellpadding = "10">
+    <tr>
         <td>CAMP NUMBER</td>
-        <td><input type="text" name="campNo" maxlength="30"/>
+        <td><input type="text" name="campNo" maxlength="30" class="w3-input w3-border"/>
         (camp number)
         </td>
         </tr>

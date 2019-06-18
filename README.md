@@ -1,2 +1,2 @@
 # disaster-management
-Disaster Management software built in PHP
+Disaster Management software is a web application buit in php. When a disaster comes it is hard to manage. But in the flood in 2018 in kerala changed the way. At the time of flood in kerala there is a web application tomanage almost everthing called keralarescue.in . It is developed for flood in kerala. Even though there is approximatly toe thousand voluteers and lot active programmers it took time to develop below one week. So if there's an pre buid software to manage everything we 

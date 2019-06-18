@@ -1,7 +1,23 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
+    color: rgba(0, 0, 0, .8);
 }
 td,th{
     padding:10px !important;
     text-align: center;
+}
+.m-btm{
+    margin-bottom: 35px;
+}
+.m-top{
+    margin-top:50px;
+}
+.input-box{
+    margin:auto;
+    margin-top:50px;
+    margin-bottom:50px;
+    border-radius: 8px;
+    width:90%;
+    max-width:400px;
+    padding:20px;
 }
