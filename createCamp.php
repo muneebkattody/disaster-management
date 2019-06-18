@@ -7,6 +7,7 @@ require('header.php');
 </script>
 </head>
 <body>
+<div id="ajaxDiv"></div>
 <p><?php if(!empty($_GET['status'])) echo $_GET['status'] ?></p>
 <form action="process.php" method="post">
     <input type="hidden" name="origin" value="createCamp">

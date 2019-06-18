@@ -32,10 +32,10 @@ function insert_row(...$args)
 
     if ($conn->query($sql)) {
         
-        return "TRUE";
+        return TRUE;
     } else {
-        // return "FALSE";
-        return error_log($conn->error."e");
+        error_log("ERROR OCCURED WHILE EXCECUTING SQL IN INSERT_ROW FUNCTION : ".$conn->error);
+        return FALSE;
     }
 }
 
@@ -61,12 +61,13 @@ function update_row(...$args)
     if ($conn->query($sql)) {
         return "TRUE";
     } else {
-        return "FALSE" . $conn->error;
+        error_log("ERROR OCCURED IN UPDATE_ROW() : ".$conn->error);
+        return FALSE;
     }
 }
 
-// FUNCTION TO CHECK WHETHER A ROW EXCIST IN TABLE
-function row_excist($table, $where)
+// FUNCTION TO CHECK WHETHER A ROW EXIST IN TABLE
+function row_exist($table, $where)
 {
     global $conn;
 
@@ -74,12 +75,15 @@ function row_excist($table, $where)
 
     $result = $conn->query($sql);
     if ($result->num_rows == 1) {
-        return true;
+        return TRUE;
     } else {
-        return false;
+        error_log("ERROR OCCURED WHILE ECECUTING SQL IN ROW_EXIST FUNTION : ".$conn->error);
+        return FALSE;
     }
 }
 
+
+// FUNCTION FOR GETTING LAST ROW
 function get_last_row($table, $col)
 {
     global $conn;
@@ -92,6 +96,44 @@ function get_last_row($table, $col)
             return $row[$col];
         }
     } else {
+        error_log("ERROR IN GETING_LAST_ROW : RESULTING MORE THAN ONE OR NO ROWS");
+        return false;
+    }
+}
+
+
+// GET DATA OF SPECIFIC COLUMN FROM SPECIFIC TABLE
+function get_data($col, $table, $db, $where="", $colToGet=FALSE){
+
+    global $servername, $username, $password;
+
+    // CREATE CONNECTION 
+    $conn = new mysqli($servername, $username, $password, $db);
+        
+    // IF CONNECTION ERROR OCCURED
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $array = [];
+
+    $sql = "SELECT ".$col." FROM ".$table." ".$where;
+
+    if($colToGet){
+        $col = $colToGet;
+    }
+    
+    $result = $conn->query($sql);
+    $conn->close();
+
+    if ($result->num_rows >= 1) {
+        while ($row = $result->fetch_assoc()) {
+            array_push($array, $row[$col]);
+        }
+
+        return $array;
+    } else {
+        error_log("ERROR IN GET_DATA : RESULTING LESS THAN ONE OR NO ROWS");
         return false;
     }
 }

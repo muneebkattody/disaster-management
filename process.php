@@ -36,7 +36,7 @@ if ($origin == 'campneeds') {
     insert_row("campneeds_history", $state, $campno, $reqname, $reqphone, $water, $food, $clothing, $medicine, $cooking, $sanitary, "NO");
 
     // CHECK IF ROW EXIST IN CAMPNEEDS TABLE USING FUNCTION ROW EXIST[CONFIG.PHP]
-    if (row_excist('campneeds', "campno=" . $campno)) {
+    if (row_exist('campneeds', "campno=" . $campno)) {
         
         // IF EXIST UPDATE CAMPNEEDS TABLE
         $table = "campneeds";
@@ -207,5 +207,38 @@ if($origin == 'newVolunteer'){
         //header('location: newVolunteer.php?status=Data Uploaded Successfully.');
     } else{
         error_log("ERROR OCCURED IN INSERTING NEW ROW IN NEW VOLUNTEER");
+    }
+}
+
+// IF ORIGIN IS PERSONS IN CAMP OTHERS ARE SAME AS ABOVE
+if($origin == 'personsInCamp'){
+
+    $db = 'id9965532_camp';
+
+    $conn = new mysqli($servername, $username, $password, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $campNo = $_POST['campNo'];
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $birthDay = $_POST['birthDay'];
+    $birthMonth = $_POST['birthMonth'];
+    $birthYear = $_POST['birthYear'];
+    $emailId = $_POST['emailId'];
+    $mobileNumber = $_POST['mobileNumber'];
+    $gender = $_POST['gender'];
+    $address = $_POST['address'];
+    $city = $_POST['city'];
+    $pinCode = $_POST['pinCode'];
+  
+    
+    if(insert_row("personsInCamp", $campNo, $firstName, $lastName, $birthDay, $birthMonth, $birthYear, $emailId, $mobileNumber, $gender, $address, $city, $pinCode)){
+        echo "DATA AUPLOADED SUCCESFULLY";
+        $conn->close();
+        // header('location: personsInCamp.php?status=Data Uploaded Successfully.');
+    } else{
+        error_log("ERROR OCCURED IN INSERTING NEW ROW OF PERSONS IN CAMP");
     }
 }
