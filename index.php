@@ -80,7 +80,7 @@ require 'header.php';
         <div class="w3-col s12 m6 l3">
             <div class="w3-card-2">
             <div class="w3-container">
-            <a href="createcamp.php">
+            <a href="createCamp.php">
                 <header>
                     <h4>Create Camp Form</h4>
                 </header>

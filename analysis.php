@@ -102,7 +102,7 @@ $conn->close();
 ////////////////////////////////////////////////////////////////////////////
 
 // PRINTING NEED AND AVAILABLE VALUES
-$layout = "<BR><table class='w3-bordered w3-border'><tr>
+$layout = "<BR><table class='w3-bordered w3-border w3-table'><tr>
     <th>Goods</th><th>Need</th><th>Available</th>
     </tr>";
 
@@ -126,7 +126,7 @@ $supply[$el] = devider($avail[$el], $need[$el], $total_need[$el]);
 /////////////////////////////////////////////////////////////////////
 
 //SETTING TABLE LAYOUT
-$layout = "<table class='w3-bordered w3-border'><tr><th>Camp no.</th>";
+$layout = "<div class='w3-responsive'><table class='w3-bordered w3-border w3-table'><tr><th>Camp no.</th>";
 foreach($needs as $el)
     $layout.="<th>".$el."</th>";
 $layout.="</tr>";
@@ -142,7 +142,7 @@ foreach ($camps as $key => $cn) {
     }
     $layout.="</tr>";
 }
-$layout.="</table>";
+$layout.="</table></div>";
 
 echo $layout;
 

@@ -1,38 +1,123 @@
 <?php
-$title = "Create Camp";
-require('header.php');
+$title = "Missing Person Camp";
+require 'header.php';
 ?>
 <script>
     getLocation();
 </script>
-<p><?php if(!empty($_GET['status'])) echo $_GET['status'] ?></p>
-<form action="process.php" method="post">
+<style>
+    input[type=text].w3-input {
+        margin-bottom:20px;
+    }
+    input[type=radio].w3-input {
+        margin-bottom:20px;
+    }
+    input[type=file].w3-input {
+        margin-bottom:20px;
+    }
+    textarea.w3-input {
+        margin-bottom:20px;
+    }
+</style>
+</head>
+<body>
+<p><?php if (!empty($_GET['status'])) {
+    echo $_GET['status'];
+}
+?></p>
+<div class="w3-container">
+    <div class="input-box w3-card-2">
+    <header>
+        <h4>Missing Person Form</h4>
+    </header>
+    <hr>
+    <form action="process.php" method="post">
     <input type="hidden" name="origin" value="missingPerson">
-    State<input type="text" name="state" id="state"><br>
-    Missing person's name <input type="text" name="name" id="name"><br>
-    Description of the person (including identifying features) <input type="text" name="description" id="description"><br>
-    Missing person's age <input type="number" name="age" id="age"><br>
-    Missing person's gender <input type="radio" name="gender" id="male" value="M">Male&nbsp;<input type="radio" name="gender" id="female" value="F">Female&nbsp;<input type="radio" name="gender" id="others" value="O"> Others&nbsp; <br>
-    Father's/Mother's/Guardian's name<input type="text" name="guardianName" id="guardianName"><br>
-    Missing person's photo <input type="file" name="photo" id="photo"><br>
-    District <input type="text" name="district" id="district"><br>
-    Last known location<input type="text" name="lastLocation" id="lastLocation"><br>
-    Missing date<input type="text" name="missingDate" id="day">day &nbsp; <input type="text" name="missingDate" id="month">Month &nbsp;<input type="text" name="missingDate" id="Year">Year<br>
-    Missing person's address<input type="text" name="address" id="address"><br>
-    Reported by (Your name) <input type="text" name="reportedBy" id="reportedBy"><br>
-    Reporter's(Your) phone number<input type="text" name="reportersNumber" id="reportersNumber"><br>
-    Police station <input type="text" name="policeStation" id="policeStation"><br>
-    Relative Name No 1  <input type="text" name="relativeName" id="relativeName"><br>
-    Relatives Mobile no 1 <input type="text" name="relativeNumber" id="relativeNumber"><br>
-    Relative Name No 2  <input type="text" name="relativeNameSec" id="relativeNameSec"><br>
-    Relatives Mobile no 2 <input type="text" name="relativeNumberSec" id="relativeNumberSec"><br>
-    Relative Name No 3  <input type="text" name="relativeNameThird" id="relativeNameThird"><br>
-    Relatives Mobile no 3 <input type="text" name="relativeNumberthird" id="relativeNumberThird"><br>
-   
+    <label>State</label>
+    <input type="text" class="w3-input w3-border" name="state" id="state">
+    <label>Missing person's name</label>
+    <input type="text" class="w3-input w3-border" name="name" id="name">
+    <label>Description of the person (including identifying features)</label>
+    <input type="text" class="w3-input w3-border" name="description" id="description">
+    <label>Missing Person's age </label>
+    <input type="text" class="w3-input w3-border" name="age" id="age">
+    Missing Person's Gender <br>
+    <p>
+        <input type="radio" class="w3-radio" name="gender" id="male" value="M" checked>
+        <label for="male" class="w3-validate">Male</label>
+    </p>
+    <p>
+        <input type="radio" class="w3-radio" name="gender" id="female" value="F">
+        <label  for="female" class="w3-validate">Female</label>
+    </p>
+    <p>
+        <input type="radio" class="w3-radio" name="gender" id="other" value="O">
+        <label for="other" class="w3-validate">Other</label>
+    </p>
 
-    <input type="submit" value="Submit">
-    <input type="reset" value="Reset">
+    <label for="huardianName">Father's/Mother's/Guardian's name</label>
+    <input type="text" class="w3-input w3-border" name="guardianName" id="guardianName">
+    <label for="photo">Missing person's photo</label>
+    <input type="file" class="w3-input w3-border" name="photo" id="photo">
+    <label for="district">District</label>
+    <input type="text" class="w3-input w3-border" name="district" id="district">
+    <label for="lastLocation">Last known location</label>
+    <input type="text" class="w3-input w3-border" name="lastLocation" id="lastLocation">
+
+    Missing date
+    <div class="w3-row">
+        <div class="w3-col m4 l4 s4">
+            <input type="text" class="w3-input w3-border" name="missingDate" id="day" placeholder="dd">
+        </div>
+        <div class="w3-col m4 l4 s4">
+            <input type="text" class="w3-input w3-border" name="missingDate" id="month" placeholder="mm">
+        </div>
+        <div class="w3-col m4 l4 s4">
+        <input type="text" class="w3-input w3-border" name="missingDate" id="Year" placeholder="yyyy">
+        </div>
+    </div>
+
+    <label for="address">Missing person's address</label>
+    <textarea class="w3-input w3-border" name="address" id="address"></textarea>
+
+    <label for="reportedBy">Reported by (Your name)</label>
+    <input type="text" class="w3-input w3-border" name="reportedBy" id="reportedBy">
+
+    <label for="reportersNumber">Reporter's(Your) phone number</label>
+    <input type="text" class="w3-input w3-border" name="reportersNumber" id="reportersNumber">
+
+    <label for="policeStation">Nearest Police station</label>
+    <input type="text" class="w3-input w3-border" name="policeStation" id="policeStation">
+
+    <label for="relativeName">Relative Name No 1</label>
+    <input type="text" class="w3-input w3-border" name="relativeName" id="relativeName">
+
+    <label for="relativeNumber">Relatives Mobile no 1</label>
+    <input type="text" class="w3-input w3-border" name="relativeNumber" id="relativeNumber">
+
+    <label for="relativeNameSec">Relative Name No 2</label>
+    <input type="text" class="w3-input w3-border" name="relativeNameSec" id="relativeNameSec">
+
+    <label for="relativeNumberSec">Relatives Mobile no 2</label>
+    <input type="text" class="w3-input w3-border" name="relativeNumberSec" id="relativeNumberSec">
+
+    <label for="relativeNameThird">Relative Name No 3</label>
+    <input type="text" class="w3-input w3-border" name="relativeNameThird" id="relativeNameThird">
+
+    <label for="relativeNumberThird">Relatives Mobile no 3</label>
+    <input type="text" class="w3-input w3-border" name="relativeNumberthird" id="relativeNumberThird">
+
+    <div class="w3-container w3-pale-green w3-leftbar w3-border-green">
+        <p>We will send a link to these numbers in few days if duplicate entries are found, for avoid duplication . Stay connected.
+        </p>
+    </div>
+
+    <br><br>
+
+    <input type="submit" class="w3-btn w3-blue" value="Submit">
+    <input type="reset" class="w3-btn w3-red" value="Reset">
+
 </form>
 <?php
-require('footer.php');
+require 'footer.php';
 ?>
