@@ -9,23 +9,43 @@ require('header.php');
 <body>
 <div id="ajaxDiv"></div>
 <p><?php if(!empty($_GET['status'])) echo $_GET['status'] ?></p>
+<div class="w3-container">
+    <div class="input-box w3-card-2">
+        <header>
+            <h4>Create Camp</h4>
+        </header>
+        <hr>
 <form action="process.php" method="post">
     <input type="hidden" name="origin" value="createCamp">
-    State<input type="text" name="name" id="name"><br>
-    Admin Name<input type="text" name="adminName" id="adminName"><br>
-    Admin Phone<input type="text" name="adminPhone" id="adminPhone"><br>
-    Alternative Phone<input type="number" name="alterPhone" id="alterPhone"><br>
-    Admin Male<input type="number" name="adminMale" id="adminMale"><br>
-    People Capacity<input type="number" name="peopleCapacity" id="clothing"><br>
-    toilet<input type="number" name="toilet" id="toilet" size="1"><br>
-    Kitchen<input type="number" name="kitchen" id="kitchen"><br>
-    GeoLocation<input type="number" name="geoLocation" id="geoLocation"><br>
-    Available Doctors<input type="number" name="availDoctor" id="availDoctor"><br>
-    People Now<input type="number" name="peopleNow" id="peopleNow"><br>
-    Available volunteers<input type="number" name="availVolunteer" id="availVolunteer"><br>
-    <input type="submit" value="Submit">
-    <input type="reset" value="Reset">
+    <label>State</label>
+    <input type="text" class="w3-input w3-border" name="name" id="name"><br>
+    <label>Admin Name</label>
+    <input type="text" class="w3-input w3-border" name="adminName" id="adminName"><br>
+    <label>Admin Phone</label>
+    <input type="text" class="w3-input w3-border" name="adminPhone" id="adminPhone"><br>
+    <label>Alternative Phone</label>
+    <input type="text" class="w3-input w3-border" name="alterPhone" id="alterPhone"><br>
+    <label>Admin Male</label>
+    <input type="text" class="w3-input w3-border" name="adminMale" id="adminMale"><br>
+    <label>People Capacity</label>
+    <input type="text" class="w3-input w3-border" name="peopleCapacity" id="clothing"><br>
+    <label>Toilet</label>
+    <input type="text" class="w3-input w3-border" name="toilet" id="toilet" size="1"><br>
+    <label>Kitchen</label>
+    <input type="text" class="w3-input w3-border" name="kitchen" id="kitchen"><br>
+    <label>GeoLocation</label>
+    <input type="text" class="w3-input w3-border" name="geoLocation" id="geoLocation"><br>
+    <label>Available Doctors</label>
+    <input type="text" class="w3-input w3-border" name="availDoctor" id="availDoctor"><br>
+    <label>People Now</label>
+    <input type="text" class="w3-input w3-border" name="peopleNow" id="peopleNow"><br>
+    <label>Available volunteers</label>
+    <input type="text" class="w3-input w3-border" name="availVolunteer" id="availVolunteer"><br>
+    <input type="submit" class="w3-btn w3-blue" value="Submit">
+    <input type="reset" class="w3-btn w3-red" value="Reset">
 </form>
+</div>
+</div>
 <?php
 require('footer.php');
 ?>

@@ -19,6 +19,7 @@ require 'header.php';
     <header>
         <h4>Camp Needs Form</h4>
     </header>
+    <hr>
     <form action="process.php" method="post">
     <input type="hidden" name="origin" value="campneeds">
     <label>State</label>
