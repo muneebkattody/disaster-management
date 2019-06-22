@@ -9,14 +9,26 @@ $title = "Result Generator";
 // REQUIRE HTML ELEMENTS 
 require 'header.php';
 
-// CLOSING HEAD AND START BODY FOR HTML
-echo "</head><body>";
+?>
+</head>
+<body>
+
+<header class="w3-container w3-teal m-btm">
+<h1>Disaster Management Software</h1>
+<h6>Powerd by AardWolf &reg;</h6>
+</header>
+
+<?php
 
 // GET NEEDS FROM NEEDS.CSV FILE
 $file = fopen("csv/needs.csv","r");
 
-// CONVERT CSV TO ARRAY
-$needs = fgetcsv($file);
+// CONVERTING CSV TO ARRAY
+$needs = array();
+while(($row = fgetcsv($file)) !== FALSE){
+    foreach($row as $el)
+    array_push($needs,$el);
+}
 
 // CLOSING FILE
 fclose($file);
@@ -158,10 +170,18 @@ foreach ($camps as $key => $cn) {
     if (row_exist('temp_result', "campno=" . $cn)) {
         $table = "campneeds";
         $where = "campno='" . $cn . "'";
-        $update = "food=" . $supply['food'][$key] . ",water=" . $supply['water'][$key] . ",clothing=" . $supply['clothing'][$key] . ",medicine=" . $supply['medicine'][$key] . ",cooking=" . $supply['cooking'][$key] . ",sanitary=" . $supply['sanitary'][$key];
+        foreach($needs as $el){
+            $update = $el."=" . $supply[$el][$key];
+        }
         update_row($table, $where, $update);
     }
-    insert_row("temp_result", $cn, $supply['water'][$key], $supply['food'][$key], $supply['clothing'][$key], $supply['medicine'][$key], $supply['cooking'][$key], $supply['sanitary'][$key]);
+
+    $tempArray = [];
+    foreach($needs as $el){
+        array_push($tempArray, $supply[$el][$key]);
+    }
+
+    insert_row("temp_result", $cn, $tempArray);
 }
 
 // PRINTING REMINING VALUES

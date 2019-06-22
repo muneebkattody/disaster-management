@@ -10,7 +10,6 @@ $origin = $_POST['origin'];
 if ($origin == 'campneeds') {
 
     // GETTING ALL POST VALUES FROM CAMPNEEDS
-    $state = $_POST['state'];
     $campno = $_POST['campno'];
     $reqname = $_POST['reqname'];
     $reqphone = $_POST['reqphone'];
@@ -33,7 +32,7 @@ if ($origin == 'campneeds') {
     }
 
     // INSERT A RAW IN CAMPNEEDS HISTORY [INSERT ROW IS NOT AN INBUILT FUNCTION ITS DECLARED IN CONFIG.PHP]
-    insert_row("campneeds_history", $state, $campno, $reqname, $reqphone, $water, $food, $clothing, $medicine, $cooking, $sanitary, "NO");
+    insert_row("campneeds_history", $campno, $reqname, $reqphone, $water, $food, $clothing, $medicine, $cooking, $sanitary, "NO");
 
     // CHECK IF ROW EXIST IN CAMPNEEDS TABLE USING FUNCTION ROW EXIST[CONFIG.PHP]
     if (row_exist('campneeds', "campno=" . $campno)) {
@@ -242,3 +241,47 @@ if($origin == 'personsInCamp'){
         error_log("ERROR OCCURED IN INSERTING NEW ROW OF PERSONS IN CAMP");
     }
 }
+
+// IF ORIGIN IS INSERNEED IT WILL CHANGE NEED.CSV AND CAMPNEEDS AND DONATION DATABASES
+if($origin == 'insertNeeds'){
+
+    $needs = $_POST['needs'];
+
+    if($needs!=""){
+
+    $db = 'id9965532_camp';
+
+    $conn = new mysqli($servername, $username, $password, $db);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $status = 1;
+
+    $columns = explode(' ', $needs);
+    foreach($columns as $col){
+        if(add_column('campneeds',$col,'varchar(10)') && add_column('donationindi',$col,'varchar(10)') != TRUE){
+           $status*=0; 
+        }
+    }
+
+    if($status==1){
+            // ADD ENTRIES TO NEED.CSV FILE
+            $file = fopen("csv/needs.csv","a");
+            fputcsv($file,$columns,",");
+            fclose($file);
+
+            echo "SUCCESSS";
+
+        }else{
+            echo $conn->error;
+        }
+
+
+    }
+    else{
+        echo "NULL INPUT";
+        error_log("ERROR AT INSERTNEEDS : EMPTY INPUT [ FORM VALIDAION PROBLEM OCCURED ]");
+    }
+}
+?>

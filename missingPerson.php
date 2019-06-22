@@ -21,6 +21,12 @@ require 'header.php';
 </style>
 </head>
 <body>
+
+<header class="w3-container w3-teal m-btm">
+<h1>Disaster Management Software</h1>
+<h6>Powerd by AardWolf &reg;</h6>
+</header>
+
 <p><?php if (!empty($_GET['status'])) {
     echo $_GET['status'];
 }

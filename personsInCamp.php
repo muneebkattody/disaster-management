@@ -9,6 +9,11 @@ require 'header.php';
  
 <body>
 
+<header class="w3-container w3-teal m-btm">
+<h1>Disaster Management Software</h1>
+<h6>Powerd by AardWolf &reg;</h6>
+</header>
+
     <div class="w3-container w3-teal">
         <h3 align="center">DETAILS ABOUT PERSONS INSIDE CAMP</h3>
     </div>

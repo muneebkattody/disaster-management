@@ -23,12 +23,23 @@ function insert_row(...$args)
     // DECLARE VARIABLE FOR STORING TABLE VALUES
     $val = "0";
     foreach ($args as $v) {
-        // STORING TABLE VALUES TO VARIABLE
-        $val .= ",'" . $v . "'";
+
+        //STORING ARRAY TO VARIABLE
+
+        //IF ARRAY VERIABLE IS AN ARRAY
+        if(is_array($v)){
+            foreach($v as $el){
+                $val .= ",'" . $el . "'";
+            }
+        } else{
+            $val .= ",'" . $v . "'";
+        }
     }
     
     // SQL FOR INSERT ROW
     $sql = "INSERT INTO " . $table . " VALUES(" . $val . ")";
+
+
 
     if ($conn->query($sql)) {
         
@@ -119,13 +130,12 @@ function get_data($col, $table, $db, $where="", $colToGet=FALSE){
 
     $sql = "SELECT ".$col." FROM ".$table." ".$where;
 
+
     if($colToGet){
         $col = $colToGet;
     }
     
     $result = $conn->query($sql);
-
-    print_r($result);
 
     if ($result->num_rows >= 1) {
         while ($row = $result->fetch_assoc()) {
@@ -139,4 +149,22 @@ function get_data($col, $table, $db, $where="", $colToGet=FALSE){
     }
 
     $conn->close();
+}
+
+
+// FUNCTION ADD COLUMN
+function add_column($table, $col, $property="", $position="")
+{
+    global $conn;
+
+    $sql = "ALTER TABLE ".$table." ADD ".$col." ".$property." ".$position;
+    
+    error_log($sql);
+
+    if($conn->query($sql)){
+        return TRUE;
+    }else{
+        error_log("ERROR IN ADD_COLUMN : EXCECUTING SQL ERROR");
+        return FALSE;
+    }
 }

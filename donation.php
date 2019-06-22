@@ -12,6 +12,12 @@ require 'header.php';
 </style>
 </head>
 <body>
+
+<header class="w3-container w3-teal m-btm">
+<h1>Disaster Management Software</h1>
+<h6>Powerd by AardWolf &reg;</h6>
+</header>
+
 <p><?php if (!empty($_GET['status'])) {
     echo $_GET['status'];
 }
@@ -26,32 +32,44 @@ require 'header.php';
     <input type="hidden" name="origin" value="donation">
     <label>STATE</label>
     <input type="text" class="w3-input w3-border"   name="state" id="state">
-    <label>NAME OF DONATED</label>
+    <label>NAME OF DONATEND</label>
     <input type="text" class="w3-input w3-border"   name="reqname" id="reqname">
     <label>PHONE</label>
     <input type="text" class="w3-input w3-border"   name="reqphone" id="reqphone">
 
-<?php
+    <div class="w3-container w3-pale-green w3-leftbar w3-border-green">
+        <p>Quantities are asking for how many people can use it. Eg: 25kg food for 100 peoples. Then Enter 100 in food field.</p>
+    </div>
+    <br>
+
+    <?php
 // GET NEEDS FROM NEEDS.CSV FILE
 $file = fopen("csv/needs.csv", "r");
 
+$layout = "";
+
 // CONVERT CSV TO ARRAY
-$needs = fgetcsv($file);
+// WHILE FOR TRAVERSAL EACH ROW
+while(($needs = fgetcsv($file, ",")) !== FALSE){
+
+foreach($needs as $el){
+    $layout.="<label>".strtoupper($el)."</label>";
+    $layout.='<input type="text" class="w3-input w3-border" value="" name="'.$el.'" id="'.$el.'">';
+}
+}
 
 // CLOSING FILE
 fclose($file);
 
-$str = "";
-
-$layout = "";
-
-foreach ($needs as $el) {
-    $layout .= "<label>" . strtoupper($el) . "</label>";
-    $layout .= '<input type="text" class="w3-input w3-border"   name="' . $el . '" id="' . $el . '">';
-}
-
+// PRINT $layout
 echo $layout;
+
 ?>
+
+    <label>Anything More?</label>
+    <textarea class="w3-input w3-border" name="more" id="more"></textarea>
+    <br>
+
     <input type="submit" class="w3-btn w3-blue" value="Submit">
     <input type="reset" class="w3-btn w3-red" value="Reset">
 </form>
