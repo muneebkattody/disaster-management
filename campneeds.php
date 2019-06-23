@@ -41,7 +41,7 @@ require 'header.php';
     <input type="text" class="w3-input w3-border" name="campno" id="campno">
     
     <div class="w3-container w3-pale-green w3-leftbar w3-border-green">
-        <p>Don't have CampNo?  <a href="createcamp.php">Register your camp now to get a camp no.</a></p>
+        <p>Don't have CampNo?  <a href="createCamp.php">Register your camp now to get a camp no.</a></p>
     </div>
     <br>
 

@@ -220,26 +220,56 @@ if($origin == 'personsInCamp'){
     }
 
     $campNo = $_POST['campNo'];
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $birthDay = $_POST['birthDay'];
-    $birthMonth = $_POST['birthMonth'];
-    $birthYear = $_POST['birthYear'];
-    $emailId = $_POST['emailId'];
-    $mobileNumber = $_POST['mobileNumber'];
-    $gender = $_POST['gender'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-    $pinCode = $_POST['pinCode'];
-  
-    
-    if(insert_row("personsInCamp", $campNo, $firstName, $lastName, $birthDay, $birthMonth, $birthYear, $emailId, $mobileNumber, $gender, $address, $city, $pinCode)){
-        echo "DATA AUPLOADED SUCCESFULLY";
-        $conn->close();
-        // header('location: personsInCamp.php?status=Data Uploaded Successfully.');
-    } else{
-        error_log("ERROR OCCURED IN INSERTING NEW ROW OF PERSONS IN CAMP");
+    if(!is_numeric($campNo)){
+        header('location: personsInCamp.php?status=CamoNo must be a number.');
     }
+
+    if(row_exist('campDetails', 'id='.$campNo)){
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
+        $birthDay = $_POST['birthDay'];
+        $birthMonth = $_POST['birthMonth'];
+        $birthYear = $_POST['birthYear'];
+        $emailId = $_POST['emailId'];
+        $mobileNumber = $_POST['mobileNumber'];
+        $gender = $_POST['gender'];
+        $address = $_POST['address'];
+        $city = $_POST['city'];
+        $pinCode = $_POST['pinCode'];
+    
+        // DECLARING ARRAY FOR GET MEDICINES
+        $medicines = [];
+    
+        // LOOPING THOUGH ARRAY INPUTS
+        for($i=0;!empty($_POST['med'.$i]);$i++){
+            $medicines[$i]['name'] = $_POST['med'.$i];
+            if(!empty($_POST['medDosage'.$i])){
+                $medicines[$i]['dosage'] = $_POST['medDosage'.$i];
+            }
+        }
+    
+        // CONVERNG AARAY TO JSON
+        if($medicines!=""){
+            $medicines = json_encode($medicines);
+        }else{
+            $medicines = NULL;
+        }
+        
+      
+        
+        if(insert_row("personsincamp", $campNo, $firstName, $lastName, $birthDay, $birthMonth, $birthYear, $emailId, $mobileNumber, $gender, $medicines, $address, $city, $pinCode)){
+            echo "DATA AUPLOADED SUCCESFULLY";
+            $conn->close();
+            // header('location: personsInCamp.php?status=Data Uploaded Successfully.');
+        } else{
+            error_log("ERROR OCCURED IN INSERTING NEW ROW OF PERSONS IN CAMP");
+        }
+
+    }else{
+        echo "Camp number not found. Create a camp";
+    }
+
+ 
 }
 
 // IF ORIGIN IS INSERNEED IT WILL CHANGE NEED.CSV AND CAMPNEEDS AND DONATION DATABASES

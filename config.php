@@ -81,11 +81,11 @@ function update_row(...$args)
 function row_exist($table, $where)
 {
     global $conn;
-
     $sql = "SELECT * FROM " . $table . " WHERE " . $where;
-
+    
     $result = $conn->query($sql);
-    if ($result->num_rows == 1) {
+    
+    if($result->num_rows > 0) {
         return TRUE;
     } else {
         error_log("ERROR OCCURED WHILE ECECUTING SQL IN ROW_EXIST FUNTION : ".$conn->error);

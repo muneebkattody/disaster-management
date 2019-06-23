@@ -60,3 +60,27 @@ function showToast(val)	{
           box.className = "show";
           setTimeout(function(){ box.className = box.className.replace("show", ""); }, 3000);
 }
+
+
+// ADD MEDICINE BOX
+
+// TO SET INPUT LABEL AND NAME
+var mIndex = 0;
+
+$(document).ready(function() {
+  $("#addMedicine").click(function(){
+    $('<label>Madicine '+ Number(mIndex+1) + '</label>').appendTo('#med-box'); 
+    jQuery('<input/>', {
+      type: 'text',
+      "class": 'w3-input w3-border',
+      name: 'med'+mIndex
+  }).appendTo('#med-box'); 
+  $('<label>Dosage of Madicine '+ Number(mIndex+1) + '</label>').appendTo('#med-box'); 
+  jQuery('<input/>', {
+    type: 'text',
+    "class": 'w3-input w3-border',
+    name: 'medDosage'+mIndex
+}).appendTo('#med-box'); 
+  mIndex++;
+  }); 
+});

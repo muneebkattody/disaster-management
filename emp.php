@@ -4,8 +4,7 @@ require 'header.php';
 ?>
 <style>
     input[type=text].w3-input {
-        margin-bottom: 20px;
-        border-radius: 0px;
+        margin-bottom:20px;
     }
     input[type=radio].w3-input {
         margin-bottom:20px;
@@ -15,10 +14,6 @@ require 'header.php';
     }
     textarea.w3-input {
         margin-bottom:20px;
-    }
-    #addMedicine{
-        margin-bottom: 30px;
-        margin-top: 10px;
     }
 </style>
 </head>
@@ -46,7 +41,7 @@ require 'header.php';
     <input type="text" class="w3-input w3-border" name="campNo" id="campno">
     
     <div class="w3-container w3-pale-green w3-leftbar w3-border-green">
-        <p>Don't have CampNo?  <a href="createCamp.php">Register your camp now to get a camp no.</a></p>
+        <p>Don't have CampNo?  <a href="createcamp.php">Register your camp now to get a camp no.</a></p>
     </div>
     <br>
 
@@ -73,9 +68,8 @@ require 'header.php';
     <label>Mobile Number</label>
     <input type="text" class="w3-input w3-border" name="mobileNumber" id="reqphone">
 
-    
+    Person's Gender <br>
     <p>
-        Person's Gender <br>
         <input type="radio" class="w3-radio" name="gender" id="male" value="M" checked>
         <label for="male" class="w3-validate">Male</label>
     </p>
@@ -87,11 +81,10 @@ require 'header.php';
         <input type="radio" class="w3-radio" name="gender" id="other" value="O">
         <label for="other" class="w3-validate">Other</label>
     </p>
-    <br>
 
     <label for="medicine">Using Regular Medicines?</label>
     <div id="med-box"></div>
-    <input type="button" class="w3-btn w3-block w3-round-xxlarge w3-teal w3-padding-large" value="Add Medicine" id="addMedicine"/>
+    <input type="button" class="w3-input w3-border" value="Add Medicine" id="addMedicine"/>
     <br>
 
 
