@@ -12,75 +12,96 @@ function showPosition(position) {
   loc = loc + "," + position.coords.longitude;
 }
 
-/********************* AJAX FUNCTIONS  *****************/
-
-function ajaxFunction()	{
-	var ajaxRequest;
-	try{
-		ajaxRequest = new XMLHttpRequest();
-	}catch (e){
-			try{
-				ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-			}catch (e) {
-				try{
-					ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-				}catch (e){
-					alert("Your browser broke!");
-					return false;
-				}
-			}
-		}
-		
-	return ajaxRequest;
-	}
-function ajaxReady()	{
-	ajaxRequest.onreadystatechange = function(){
-		if(ajaxRequest.readyState == 4){
-			var ajaxDisplay = document.getElementById('ajaxDiv');
-			ajaxDisplay.innerHTML = ajaxRequest.responseText;
-		}
-	}
-}
-
-function ajaxPost(query,source)	{
-  ajaxRequest=ajaxFunction();
-  ajaxRequest.onreadystatechange = function(){
-    if(ajaxRequest.readyState == 4){
-      var response=ajaxRequest.responseText;
-      showToast(response);
-    }
-  }
-  ajaxRequest.open("POST", source, true);
-  ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  ajaxRequest.send(query);
-}
-function showToast(val)	{
-    var box=document.getElementById('snackbar');
-    box.innerHTML=val;
-          box.className = "show";
-          setTimeout(function(){ box.className = box.className.replace("show", ""); }, 3000);
-}
-
-
 // ADD MEDICINE BOX
 
 // TO SET INPUT LABEL AND NAME
 var mIndex = 0;
 
 $(document).ready(function() {
-  $("#addMedicine").click(function(){
-    $('<label>Madicine '+ Number(mIndex+1) + '</label>').appendTo('#med-box'); 
-    jQuery('<input/>', {
-      type: 'text',
-      "class": 'w3-input w3-border',
-      name: 'med'+mIndex
-  }).appendTo('#med-box'); 
-  $('<label>Dosage of Madicine '+ Number(mIndex+1) + '</label>').appendTo('#med-box'); 
-  jQuery('<input/>', {
-    type: 'text',
-    "class": 'w3-input w3-border',
-    name: 'medDosage'+mIndex
-}).appendTo('#med-box'); 
-  mIndex++;
-  }); 
+  $("#addMedicine").click(function() {
+    jQuery("<div/>", {
+      id: "medBox" + mIndex
+    }).appendTo("#med-box");
+
+    jQuery("<span/>", {
+      class: "deleteicon w3-badge w3-round-xxlarge w3-red",
+      onclick: 'removeElement("medBox' + mIndex + '")'
+    })
+      .text("remove")
+      .appendTo("#medBox" + mIndex);
+
+    jQuery("<input/>", {
+      type: "text",
+      class: "w3-input w3-border w3-round-xxlarge",
+      name: "med" + mIndex,
+      placeholder: " Medicine " + Number(mIndex + 1)
+    })
+      .appendTo("#medBox" + mIndex)
+      .focus();
+
+    jQuery("<input/>", {
+      type: "text",
+      class: "w3-input w3-border w3-round-xxlarge",
+      name: "medDosage" + mIndex,
+      placeholder: " Dosage of medicine " + Number(mIndex + 1)
+    }).appendTo("#medBox" + mIndex);
+    mIndex++;
+  });
 });
+
+function removeElement(ele) {
+  ele = "#" + ele;
+
+  // YOU CAN ALSO USE slideUp
+  $(ele).hide("slow", () => {
+    $(ele).remove();
+  });
+  mIndex--;
+}
+
+/////////////////////////////////////////
+
+// this is the id of the form
+$(document).ready(() => {
+  $("#ajaxForm").submit(function(e) {
+    showToast("Uploading...");
+
+    e.preventDefault();
+
+    var form = $(this);
+    var url = form.attr("action");
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: form.serialize(),
+      success: function(data) {
+        showToast(data);
+      }
+    });
+
+    $("#ajaxForm").trigger("reset");
+  });
+});
+
+function showToast(val) {
+  if($("#snackbar").length) {
+    $("#snackbar").text(val);
+    //alert(val);
+  } else {
+    jQuery("<div/>", {
+      id: "snackbar"
+    })
+      .text(val)
+      .appendTo("body");
+
+    //alert(val);
+
+    $("#snackbar").attr("class", "show");
+
+    setTimeout(() => {
+      $("#snackbar").removeClass("show");
+        $("#snackbar").remove();
+    }, 3000);
+  }
+}

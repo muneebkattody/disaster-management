@@ -192,6 +192,7 @@ $peopleInAllCamps = get_data('COUNT(id) as id', 'personsincamp', $db, "", 'id');
             </div>
         </div>
     </div>
+    <div class="social-footer"> Contribute On <a href="http://github.com/muneebkattody/disaster-management/">GitHub</a></div>
 </footer>
 <?php
 require 'footer.php';

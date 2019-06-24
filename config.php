@@ -70,7 +70,7 @@ function update_row(...$args)
     $sql = "UPDATE " . $table . " SET " . $val . " WHERE " . $where;
 
     if ($conn->query($sql)) {
-        return "TRUE";
+        return TRUE;
     } else {
         error_log("ERROR OCCURED IN UPDATE_ROW() : ".$conn->error);
         return FALSE;
@@ -80,12 +80,12 @@ function update_row(...$args)
 // FUNCTION TO CHECK WHETHER A ROW EXIST IN TABLE
 function row_exist($table, $where)
 {
-    global $conn;
+    global $conn,$result;
     $sql = "SELECT * FROM " . $table . " WHERE " . $where;
     
-    $result = $conn->query($sql);
+    //$result = $conn->query($sql);
     
-    if($result->num_rows > 0) {
+    if($conn->query($sql)) {
         return TRUE;
     } else {
         error_log("ERROR OCCURED WHILE ECECUTING SQL IN ROW_EXIST FUNTION : ".$conn->error);

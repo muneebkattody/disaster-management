@@ -19,6 +19,13 @@ require 'header.php';
     #addMedicine{
         margin-bottom: 30px;
         margin-top: 10px;
+        width:100%;
+    }
+    span.deleteicon {
+        position: relative;
+        float:right;
+        margin-bottom:5px;
+        cursor: pointer;
     }
 </style>
 </head>
@@ -40,7 +47,7 @@ require 'header.php';
         <h4>Persons In Camp Form</h4>
     </header>
     <hr>
-    <form action="process.php" method="post">
+    <form action="process.php" method="post" id="ajaxForm">
     <input type="hidden" name="origin" value="personsInCamp">
     <label>Camp Number</label>
     <input type="text" class="w3-input w3-border" name="campNo" id="campno">
@@ -52,6 +59,7 @@ require 'header.php';
 
     <label>First Name</label>
     <input type="text" class="w3-input w3-border" name="firstName" id="firstName">
+    
     <label>Last Name</label>
     <input type="text" class="w3-input w3-border" name="lastName" id="lastName">
     

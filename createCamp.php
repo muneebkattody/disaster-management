@@ -21,7 +21,7 @@ require('header.php');
             <h4>Create Camp</h4>
         </header>
         <hr>
-<form action="process.php" method="post">
+<form action="process.php" method="post" id="ajaxForm">
     <input type="hidden" name="origin" value="createCamp">
     <label>State</label>
     <input type="text" class="w3-input w3-border" name="name" id="name"><br>
@@ -31,7 +31,7 @@ require('header.php');
     <input type="text" class="w3-input w3-border" name="adminPhone" id="adminPhone"><br>
     <label>Alternative Phone</label>
     <input type="text" class="w3-input w3-border" name="alterPhone" id="alterPhone"><br>
-    <label>Admin Male</label>
+    <label>Admin Mail</label>
     <input type="text" class="w3-input w3-border" name="adminMale" id="adminMale"><br>
     <label>People Capacity</label>
     <input type="text" class="w3-input w3-border" name="peopleCapacity" id="clothing"><br>

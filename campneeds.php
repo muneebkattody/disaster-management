@@ -35,7 +35,7 @@ require 'header.php';
         <h4>Camp Needs Form</h4>
     </header>
     <hr>
-    <form action="process.php" method="post">
+    <form action="process.php" method="post" id="ajaxForm">
     <input type="hidden" name="origin" value="campneeds">
     <label>Camp Number</label>
     <input type="text" class="w3-input w3-border" name="campno" id="campno">

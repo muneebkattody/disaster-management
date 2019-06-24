@@ -28,7 +28,7 @@ require 'header.php';
         <h4>Donation Form</h4>
     </header>
     <hr>
-<form action="process.php" method="post">
+<form action="process.php" method="post" id="ajaxForm">
     <input type="hidden" name="origin" value="donation">
     <label>STATE</label>
     <input type="text" class="w3-input w3-border"   name="state" id="state">

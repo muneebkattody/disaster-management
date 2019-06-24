@@ -37,7 +37,7 @@ require 'header.php';
         <h4>Insert Needs</h4>
     </header>
     <hr>
-    <form action="process.php" method="post">
+    <form action="process.php" method="post" id="ajaxForm">
     <input type="hidden" name="origin" value="insertNeeds">
     <label>Needs To Add</label>
     <input type="text" class="w3-input w3-border" name="needs" id="state">

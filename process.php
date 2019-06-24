@@ -34,6 +34,8 @@ if ($origin == 'campneeds') {
     // INSERT A RAW IN CAMPNEEDS HISTORY [INSERT ROW IS NOT AN INBUILT FUNCTION ITS DECLARED IN CONFIG.PHP]
     insert_row("campneeds_history", $campno, $reqname, $reqphone, $water, $food, $clothing, $medicine, $cooking, $sanitary, "NO");
 
+    $result;
+
     // CHECK IF ROW EXIST IN CAMPNEEDS TABLE USING FUNCTION ROW EXIST[CONFIG.PHP]
     if (row_exist('campneeds', "campno=" . $campno)) {
         
@@ -46,21 +48,18 @@ if ($origin == 'campneeds') {
     } 
 
     // IF ROW DOESN'T EXIST INSERT NEW ROW [CONFIG.PHP]
-    else if ($result->num_rows == 0) {
-        insert_row("campneeds", $state, $campno, $reqname, $reqphone, $water, $food, $clothing, $medicine, $cooking, $sanitary, "NO");
-    } else {
-        // ELSE SOMETHING WENT WRONG
-        echo "Something went wrong! Try Again.";
-
-        // SETTING ERROR LOG
-        error_log("ERROR OCCURED : AS RESULT NUM_ROWS != O OR 1");
-    }
+    else{
+        insert_row("campneeds", $campno, $reqname, $reqphone, $water, $food, $clothing, $medicine, $cooking, $sanitary, "NO");
+        }
 
     // CLOSING DATABASE CONNECTION
     $conn->close();
 
     // REDIRECTING TO SOURCE PAGE WITH MESSAGE
-    header('location: campneeds.php?status=Data Uploaded Successfully');
+    //header('location: campneeds.php?status=Data Uploaded Successfully');
+    
+    // AJAX RETURN
+    echo "Data uploaded.";
 }
 
 // IF ORIGIN IS DONATION
@@ -95,7 +94,8 @@ if ($origin == 'donation') {
     $conn->close();
 
     // REDIRECTING TO SOURCE PAGE
-    header('location: donation.php?status=Data Uploaded Successfully');
+    //header('location: donation.php?status=Data Uploaded Successfully');
+    echo "Data uploaded.";
 }
 
 
@@ -134,7 +134,8 @@ if ($origin == 'createCamp') {
 
         // CLOSE CONNECTION
         $conn->close();
-        header('location: createCamp.php?status=Data Uploaded Successfully. Your Camp Id is:' . $id . '');
+        //header('location: createCamp.php?status=Data Uploaded Successfully. Your Camp Id is:' . $id . '');
+        echo "Data uploaded. "."Your Camp Id is:" . $id;
     } else{
         //  IF ERROR OCCURED
         error_log("CAMP DETAILS INSERT ROW ERROR OCCURED");
@@ -173,10 +174,11 @@ if($origin == 'missingPerson'){
     $relativeNameThird = $_POST['relativeNameThird'];
     $relativeNumberThird = $_POST['relativeNumberthird'];    
     
-    
+
     if(insert_row("missingPerson", $state, $name, $description, $age, $gender, $guardianName, $district, $lastLocation, $missingDate, $address, $reportedBy, $reportersNumber, $policeStation, $relativeName, $relativeNumber, $relativeNameSec, $relativeNumberSec, $relativeNameThird, $relativeNumberThird)){
         $conn->close();
-        header('location: missingPerson.php?status=Data Uploaded Successfully.');
+        //header('location: missingPerson.php?status=Data Uploaded Successfully.');
+        echo "Data uploaded.";
     } else{
         error_log("ERROR OCCURED WHILE INSERTING ROW IN MISSIN PERSON");
     }
@@ -201,9 +203,9 @@ if($origin == 'newVolunteer'){
   
     
     if(insert_row("newvolunteer", $name, $phone, $district, $orgonization, $area, $address)){
-        echo "DATA AUPLOADED SUCCESFULLY";
         $conn->close();
         //header('location: newVolunteer.php?status=Data Uploaded Successfully.');
+        echo "Data uploaded.";
     } else{
         error_log("ERROR OCCURED IN INSERTING NEW ROW IN NEW VOLUNTEER");
     }
@@ -221,7 +223,8 @@ if($origin == 'personsInCamp'){
 
     $campNo = $_POST['campNo'];
     if(!is_numeric($campNo)){
-        header('location: personsInCamp.php?status=CamoNo must be a number.');
+        //header('location: personsInCamp.php?status=CamoNo must be a number.');
+        echo "Camp No. must me a anumber.";
     }
 
     if(row_exist('campDetails', 'id='.$campNo)){
@@ -258,9 +261,9 @@ if($origin == 'personsInCamp'){
       
         
         if(insert_row("personsincamp", $campNo, $firstName, $lastName, $birthDay, $birthMonth, $birthYear, $emailId, $mobileNumber, $gender, $medicines, $address, $city, $pinCode)){
-            echo "DATA AUPLOADED SUCCESFULLY";
             $conn->close();
-            // header('location: personsInCamp.php?status=Data Uploaded Successfully.');
+            //header('location: personsInCamp.php?status=Data Uploaded Successfully.');
+            echo "Data uploaded.";
         } else{
             error_log("ERROR OCCURED IN INSERTING NEW ROW OF PERSONS IN CAMP");
         }
@@ -268,8 +271,6 @@ if($origin == 'personsInCamp'){
     }else{
         echo "Camp number not found. Create a camp";
     }
-
- 
 }
 
 // IF ORIGIN IS INSERNEED IT WILL CHANGE NEED.CSV AND CAMPNEEDS AND DONATION DATABASES
@@ -301,10 +302,10 @@ if($origin == 'insertNeeds'){
             fputcsv($file,$columns,",");
             fclose($file);
 
-            echo "SUCCESSS";
+            echo "Data uploaded.";
 
         }else{
-            echo $conn->error;
+            error_log($conn->error);
         }
 
 
