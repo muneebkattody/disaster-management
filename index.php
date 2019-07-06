@@ -162,17 +162,16 @@ require 'header.php';
 
 <?php
 require 'config.php';
-
-$db = 'id9965532_camp';
+$dbHandle = new DBController;
 
 // TOTAL CAMPS
-$totalCamps = get_data('COUNT(id) as id', 'campdetails', $db, "", 'id');
+$totalCamps = $dbHandle->get_data('COUNT(id) as id', 'campdetails', "", 'id');
 
 // PEOPLE CAPACITY INCLUDING ALL CAMPS
-$peopleCapacity = get_data('SUM(peopleCapacity) as peopleCapacity', 'campdetails', $db, "", 'peopleCapacity');
+$peopleCapacity = $dbHandle->get_data('SUM(peopleCapacity) as peopleCapacity', 'campdetails', "", 'peopleCapacity');
 
 // PEOPLE IN ALL CAMPS
-$peopleInAllCamps = get_data('COUNT(id) as id', 'personsincamp', $db, "", 'id');
+$peopleInAllCamps = $dbHandle->get_data('COUNT(id) as id', 'personsincamp', "", 'id');
 
 ?>
 

@@ -13,44 +13,43 @@ require 'config.php';
 
 <?php
 
-$db = 'id9965532_camp';
-
-// GETTING STATISTIVS OF MISSING PERSON
+$dbHandle = new DBController;
+// GETTING STATISTIcS OF MISSING PERSON
 
 // MISSING PERSON MALE
-$male = get_data('COUNT(gender) as gender', 'missingperson', $db, "WHERE gender='M'", 'gender');
+$male = $dbHandle->get_data('COUNT(gender) as gender', 'missingperson', "WHERE gender='M'", 'gender');
 echo "Male ".$male[0]."<br>";
 
 // MISSING PERSONS FEMALE
-$female = get_data('COUNT(gender) as gender', 'missingperson', $db, "WHERE gender='F'", 'gender');
+$female = $dbHandle->get_data('COUNT(gender) as gender', 'missingperson', "WHERE gender='F'", 'gender');
 echo "Female ".$female[0]."<br>";
 
 // MISSING PERSONS TRANS
-$trans = get_data('COUNT(gender) as gender', 'missingperson', $db, "WHERE gender='O'", 'gender');
+$trans = $dbHandle->get_data('COUNT(gender) as gender', 'missingperson', "WHERE gender='O'", 'gender');
 echo "trans ".$trans[0]."<br>";
 
 // TOTAL CAMPS
-$totalCamps = get_data('COUNT(id) as id', 'campdetails', $db, "", 'id');
+$totalCamps = $dbHandle->get_data('COUNT(id) as id', 'campdetails', "", 'id');
 echo "totalCamps ".$totalCamps[0]."<br>";
 
 // PEOPLE CAPACITY INCLUDING ALL CAMPS
-$peopleCapacity = get_data('SUM(peopleCapacity) as peopleCapacity', 'campdetails', $db, "", 'peopleCapacity');
+$peopleCapacity = $dbHandle->get_data('SUM(peopleCapacity) as peopleCapacity', 'campdetails', "", 'peopleCapacity');
 echo "peopleCapacity Including All Camps".$peopleCapacity[0]."<br>";
 
 // PEOPLE IN ALL CAMPS
-$peopleInAllCamps = get_data('COUNT(id) as id', 'personsincamp', $db, "", 'id');
+$peopleInAllCamps = $dbHandle->get_data('COUNT(id) as id', 'personsincamp', "", 'id');
 echo "peopleInAllCamps ".$peopleInAllCamps[0]."<br>";
 
 // PERSON IN CAMP MALE
-$maleInCamps = get_data('COUNT(gender) as gender', 'missingperson', $db, "WHERE gender='M' OR gender='Male'", 'gender');
+$maleInCamps = $dbHandle->get_data('COUNT(gender) as gender', 'missingperson', "WHERE gender='M' OR gender='Male'", 'gender');
 echo "Males In Camp ".$maleInCamps[0]."<br>";
 
 // PERSON IN CAMP FEMALE
-$femaleinCamps = get_data('COUNT(gender) as gender', 'missingperson', $db, "WHERE gender='F' OR gender='Female'", 'gender');
+$femaleinCamps = $dbHandle->get_data('COUNT(gender) as gender', 'missingperson', "WHERE gender='F' OR gender='Female'", 'gender');
 echo "Female In Camp ".$femaleinCamps[0]."<br>";
 
 // PERSON IN CAMP OTHER
-$transInCamps = get_data('COUNT(gender) as gender', 'missingperson', $db, "WHERE gender='O' OR gender='Trance'", 'gender');
+$transInCamps = $dbHandle->get_data('COUNT(gender) as gender', 'missingperson', "WHERE gender='O' OR gender='Trance'", 'gender');
 echo "Trans In Camp ".$transInCamps[0]."<br>";
 
 
