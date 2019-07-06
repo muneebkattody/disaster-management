@@ -6,54 +6,67 @@ require 'config.php';
 // GEIING SOURCE NAME
 $origin = $_POST['origin'];
 
+// GET NEEDS FROM NEEDS.CSV FILE
+$file = fopen("csv/needs.csv","r");
+
+// CONVERTING CSV TO ARRAY
+$needs = array();
+while(($row = fgetcsv($file)) !== FALSE){
+    foreach($row as $el)
+    array_push($needs,$el);
+}
+
+// CLOSING FILE
+fclose($file);
+
+$db_handle = new DBController;
+
 // IF ORIGIN IS CAMPNEEDS
 if ($origin == 'campneeds') {
+
+    global $needs;
 
     // GETTING ALL POST VALUES FROM CAMPNEEDS
     $campno = $_POST['campno'];
     $reqname = $_POST['reqname'];
     $reqphone = $_POST['reqphone'];
-    $water = $_POST['water'];
-    $food = $_POST['food'];
-    $clothing = $_POST['clothing'];
-    $medicine = $_POST['medicine'];
-    $cooking = $_POST['cooking'];
-    $sanitary = $_POST['sanitary'];
-
-    // SETTING DB
-    $db = 'id9965532_camp';
-
-    // CREATE CONNECTION 
-    $conn = new mysqli($servername, $username, $password, $db);
-    
-    // IF CONNECTION ERROR OCCURED
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    foreach($needs as $el){
+        $newNeeds[$el] = $_POST[$el];
+        if(empty($newNeeds[$el])){
+            $newNeeds[$el]=0;
+        }
     }
 
     // INSERT A RAW IN CAMPNEEDS HISTORY [INSERT ROW IS NOT AN INBUILT FUNCTION ITS DECLARED IN CONFIG.PHP]
-    insert_row("campneeds_history", $campno, $reqname, $reqphone, $water, $food, $clothing, $medicine, $cooking, $sanitary, "NO");
+    $db_handle->insert_row("campneeds_history", $campno, $reqname, $reqphone, $newNeeds, "NO");
 
     $result;
 
     // CHECK IF ROW EXIST IN CAMPNEEDS TABLE USING FUNCTION ROW EXIST[CONFIG.PHP]
-    if (row_exist('campneeds', "campno=" . $campno)) {
+    if ($db_handle->row_exist('campneeds', "campno=" . $campno)) {
         
         // IF EXIST UPDATE CAMPNEEDS TABLE
         $table = "campneeds";
         $where = "campno='" . $campno . "'";
-        $update = "food=food+" . $food . ",water=water+" . $water . ",clothing=clothing+" . $clothing . ",medicine=medicine+" . $medicine . ",cooking=cooking+" . $cooking . ",sanitary=sanitary+" . $sanitary;
+        $update = "";
+        foreach($needs as $el){
+            $update .= $el."=".$el."+".$newNeeds[$el];
+            if(!($el==end($needs))){
+                $update .= ",";
+            }
+            error_log($update);
+        }
         
-        update_row($table, $where, $update);
+        $db_handle->update_row($table, $where, $update);
     } 
 
     // IF ROW DOESN'T EXIST INSERT NEW ROW [CONFIG.PHP]
     else{
-        insert_row("campneeds", $campno, $reqname, $reqphone, $water, $food, $clothing, $medicine, $cooking, $sanitary, "NO");
+        $db_handle->insert_row("campneeds", $campno, $reqname, $reqphone, $newNeeds, "NO");
         }
 
     // CLOSING DATABASE CONNECTION
-    $conn->close();
+    $db_handle->dbClose();
 
     // REDIRECTING TO SOURCE PAGE WITH MESSAGE
     //header('location: campneeds.php?status=Data Uploaded Successfully');
